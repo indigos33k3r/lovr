@@ -91,5 +91,6 @@ typedef struct {
 
 ModelData* lovrModelDataCreate(Blob* blob);
 ModelData* lovrModelDataCreateEmpty();
+ModelData* lovrModelDataCreateFromGltf(Blob* blob);
 void lovrModelDataDestroy(void* ref);
 void lovrModelDataGetAABB(ModelData* modelData, float aabb[6]);
