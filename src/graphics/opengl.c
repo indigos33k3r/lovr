@@ -2318,6 +2318,17 @@ Mesh* lovrMeshCreate(uint32_t count, VertexFormat format, DrawMode mode, BufferU
   return mesh;
 }
 
+Mesh* lovrMeshCreateEmpty(DrawMode mode) {
+  Mesh* mesh = lovrAlloc(Mesh, lovrMeshDestroy);
+  if (!mesh) return NULL;
+
+  mesh->mode = mode;
+  glGenVertexArrays(1, &mesh->vao);
+  map_init(&mesh->attributes);
+
+  return mesh;
+}
+
 void lovrMeshDestroy(void* ref) {
   Mesh* mesh = ref;
   lovrRelease(mesh->material);
@@ -2558,4 +2569,15 @@ void lovrMeshFlushIndices(Mesh* mesh) {
 
 void* lovrMeshReadIndices(Mesh* mesh, uint32_t* count, size_t* indexSize) {
   return *count = mesh->indexCount, *indexSize = mesh->indexSize, lovrBufferMap(mesh->ibo, 0);
+}
+
+void lovrMeshSetIndexBuffer(Mesh* mesh, Buffer* indexBuffer, size_t indexSize) {
+  if (mesh->ibo != indexBuffer || mesh->indexSize != indexSize) {
+    lovrRetain(indexBuffer);
+    lovrRelease(mesh->ibo);
+    mesh->ibo = indexBuffer;
+    mesh->indexCount = lovrBufferGetSize(indexBuffer) / indexSize;
+    mesh->indexCapacity = 0;
+    mesh->dirty = true;
+  }
 }

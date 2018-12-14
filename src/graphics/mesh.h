@@ -1,3 +1,4 @@
+#include "data/modelData.h"
 #include "graphics/material.h"
 #include "graphics/shader.h"
 #include "data/vertexData.h"
@@ -21,19 +22,10 @@ typedef struct {
 
 typedef map_t(MeshAttribute) map_attribute_t;
 
-typedef enum {
-  DRAW_POINTS,
-  DRAW_LINES,
-  DRAW_LINE_STRIP,
-  DRAW_LINE_LOOP,
-  DRAW_TRIANGLE_STRIP,
-  DRAW_TRIANGLES,
-  DRAW_TRIANGLE_FAN
-} DrawMode;
-
 typedef struct Mesh Mesh;
 
 Mesh* lovrMeshCreate(uint32_t count, VertexFormat format, DrawMode drawMode, BufferUsage usage, bool readable);
+Mesh* lovrMeshCreateEmpty(DrawMode drawMode);
 void lovrMeshDestroy(void* ref);
 void lovrMeshAttachAttribute(Mesh* mesh, const char* name, MeshAttribute* attribute);
 void lovrMeshDetachAttribute(Mesh* mesh, const char* name);
@@ -57,3 +49,4 @@ void lovrMeshFlushVertices(Mesh* mesh, size_t offset, size_t size);
 void* lovrMeshMapIndices(Mesh* mesh, uint32_t count, size_t indexSize, size_t offset);
 void lovrMeshFlushIndices(Mesh* mesh);
 void* lovrMeshReadIndices(Mesh* mesh, uint32_t* count, size_t* indexSize);
+void lovrMeshSetIndexBuffer(Mesh* mesh, Buffer* indexBuffer, size_t indexSize);
