@@ -22,6 +22,7 @@ Animator* lovrAnimatorCreate(ModelData* modelData) {
   vec_init(&animator->trackList);
   animator->speed = 1;
 
+  /*
   for (int i = 0; i < modelData->animationCount; i++) {
     Animation* animation = &modelData->animations[i];
 
@@ -38,6 +39,7 @@ Animator* lovrAnimatorCreate(ModelData* modelData) {
     map_set(&animator->trackMap, animation->name, track);
     vec_push(&animator->trackList, map_get(&animator->trackMap, animation->name));
   }
+  */
 
   return animator;
 }
@@ -196,15 +198,17 @@ bool lovrAnimatorEvaluate(Animator* animator, const char* bone, mat4 transform) 
 }
 
 int lovrAnimatorGetAnimationCount(Animator* animator) {
-  return animator->modelData->animationCount;
+  //oreturn animator->modelData->animationCount;
+  return 0;
 }
 
 const char* lovrAnimatorGetAnimationName(Animator* animator, int index) {
-  if (index < 0 || index >= animator->modelData->animationCount) {
+  if (index < 0 || index >= 0/*animator->modelData->animationCount*/) {
     return NULL;
   }
 
-  return animator->modelData->animations[index].name;
+  //return animator->modelData->animations[index].name;
+  return NULL;
 }
 
 void lovrAnimatorPlay(Animator* animator, const char* animation) {
