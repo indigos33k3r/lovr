@@ -2582,6 +2582,7 @@ void lovrMeshSetIndexBuffer(Mesh* mesh, Buffer* indexBuffer, size_t indexSize) {
     lovrRelease(mesh->ibo);
     mesh->ibo = indexBuffer;
     mesh->indexCount = lovrBufferGetSize(indexBuffer) / indexSize;
+    mesh->indexSize = indexSize;
     mesh->indexCapacity = 0;
     mesh->dirty = true;
   }
