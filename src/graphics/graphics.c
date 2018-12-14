@@ -94,15 +94,15 @@ void lovrGraphicsSetWindow(WindowFlags* flags) {
 
   VertexFormat format;
   vertexFormatInit(&format);
-  vertexFormatAppend(&format, "lovrPosition", ATTR_FLOAT, 3);
-  vertexFormatAppend(&format, "lovrNormal", ATTR_FLOAT, 3);
-  vertexFormatAppend(&format, "lovrTexCoord", ATTR_FLOAT, 2);
+  vertexFormatAppend(&format, "lovrPosition", F32, 3);
+  vertexFormatAppend(&format, "lovrNormal", F32, 3);
+  vertexFormatAppend(&format, "lovrTexCoord", F32, 2);
   state.defaultMesh = lovrMeshCreate(MAX_VERTICES, format, DRAW_TRIANGLES, USAGE_STREAM, false);
 
   state.vertexMap = lovrBufferCreate(MAX_VERTICES * sizeof(uint8_t), NULL, USAGE_STREAM, false);
   lovrMeshAttachAttribute(state.defaultMesh, "lovrDrawID", &(MeshAttribute) {
     .buffer = state.vertexMap,
-    .type = ATTR_BYTE,
+    .type = U8,
     .components = 1,
     .integer = true,
     .enabled = true
