@@ -80,7 +80,7 @@ void lovrModelDraw(Model* model, mat4 transform, int instances) {
   ModelNode* node = &model->data->nodes[0];
 
   lovrGraphicsDraw(&(DrawCommand) {
-    .transform = node->transform,
+    .transform = transform,
     .mesh = model->meshes[0],
     .instances = 1
   });
