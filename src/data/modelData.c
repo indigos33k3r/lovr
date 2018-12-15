@@ -378,6 +378,9 @@ ModelData* lovrModelDataCreate(Blob* blob, ModelDataIO io) {
 
     binData = (char*) &binHeader[1];
     binLength = binHeader->length;
+
+    // Hang onto the data since it's already here rather than make a copy of it
+    lovrRetain(blob);
   } else {
     jsonData = (char*) data;
     jsonLength = blob->size;
@@ -400,6 +403,7 @@ ModelData* lovrModelDataCreate(Blob* blob, ModelDataIO io) {
   size_t offset = 0;
   ModelData* model = lovrAlloc(ModelData, free);
   model->data = calloc(1, dataSize);
+  model->glbBlob = glb ? blob : NULL;
   model->accessorCount = info.accessors.count;
   model->blobCount = info.blobs.count;
   model->viewCount = info.views.count;
